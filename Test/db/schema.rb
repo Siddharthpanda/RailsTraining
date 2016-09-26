@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923103704) do
+ActiveRecord::Schema.define(version: 20160926065237) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "first_name",      limit: 25
@@ -24,16 +24,21 @@ ActiveRecord::Schema.define(version: 20160923103704) do
     t.index ["username"], name: "index_admin_users_on_username", using: :btree
   end
 
+  create_table "admin_users_pages", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "admin_user_id"
+    t.integer "page_id"
+    t.index ["admin_user_id", "page_id"], name: "index_admin_users_pages_on_admin_user_id_and_page_id", using: :btree
+  end
+
   create_table "pages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "subjct_id"
     t.string   "name"
     t.string   "permalink"
     t.integer  "position"
     t.boolean  "visible",    default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "subject_id"
     t.index ["permalink"], name: "index_pages_on_permalink", using: :btree
-    t.index ["subjct_id"], name: "index_pages_on_subjct_id", using: :btree
   end
 
   create_table "sections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
