@@ -21,4 +21,13 @@ class DemoController < ApplicationController
 
   def text_helpers
   end
+
+  def logging
+    logger.debug("In debug")
+    logger.info("In info")
+    logger.warn("In warn")
+    logger.error("In error")
+    logger.fatal("In fatal")
+    render(:text => 'Logged')
+  end 
 end
